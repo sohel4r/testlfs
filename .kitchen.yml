@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+# verifier:
+#   name: inspec
+
+platforms:
+  - name: bento/centos-6.7
+    driver:
+      vagrantfiles:
+        - local-vagrantfile.rb
+      vm_hostname: integrationtesting
+
+suites:
+  - name: jenkins
+    run_list:
+      # - recipe[jenkins::default]
+      - recipe[jenkins::nginxssl]
+    attributes:
+    data_bags_path: "test/integration/data_bags"
+    encrypted_data_bag_secret_key_path: "test/integration/default/encrypted_data_bag_secret"

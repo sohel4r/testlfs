@@ -1,0 +1,23 @@
+upstream jenkins {
+    server 127.0.0.1:8080;
+}
+
+server {
+    listen 8080;
+    server_name <%= node['fqdn'] %>;
+
+    ssl on;
+    ssl_certificate /etc/nginx/certs/ssl.cert;
+    ssl_certificate_key /etc/nginx/certs/ssl.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+    ssl_ciphers HIGH:!aNULL:!eNULL:!LOW:!MD5;
+    ssl_prefer_server_ciphers on;
+
+ # auth_basic "jenkins";
+ # auth_basic_user_file /etc/nginx/jk-password;
+
+    location / {
+  	  proxy_pass http://jenkins;
+    }
+}
