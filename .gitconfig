@@ -1,0 +1,6 @@
+[lfs]
+    batch = false
+
+# Cache anonymous access to DM Git LFS S3 servers
+[credential "http://sohellfs.s3-website-ap-southeast-1.amazonaws.com"]
+    helper = store
